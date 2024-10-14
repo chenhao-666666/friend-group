@@ -30,8 +30,9 @@ for row in rows:
     # for key, entry in enumerate(row):
     #     print(entry, row[entry])
     my_group.append(row)
-print(my_group)
 
+#what is the maximum age in the group?
+ages = []
+[ages.append(person["age"]) for person in my_group]
+print(max(ages))
 
-
-    
