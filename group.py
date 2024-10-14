@@ -35,4 +35,7 @@ for row in rows:
 ages = []
 [ages.append(person["age"]) for person in my_group]
 print(max(ages))
-
+import numpy as np
+num_relationships = []
+[num_relationships.append(len(person["Relationships"])) for person in my_group]
+print(np.mean(num_relationships))
