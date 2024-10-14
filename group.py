@@ -7,13 +7,13 @@ rows = [{ "name": "", "age": "", "job": "", Relationships: {} },
         ]
 """
 rows = [
-        { "name": "Jill", "age": "26", "job": "biologist", "Relationships": {"Zalika": "Friend", "John": "Partner"}},
+        { "name": "Jill", "age": 26, "job": "biologist", "Relationships": {"Zalika": "Friend", "John": "Partner"}},
         
-        { "name": "Zalika", "age": "28", "job": "artist", "Relationships": {"Jill": "Friend", "Nash": "Landlord"}}, 
+        { "name": "Zalika", "age": 28, "job": "artist", "Relationships": {"Jill": "Friend", "Nash": "Landlord"}}, 
         
-        {"name": "John", "age": "27", "job": "writer", "Relationships": {"Jill": "Partner", "Nash": "Cousin"}}, 
+        {"name": "John", "age": 27, "job": "writer", "Relationships": {"Jill": "Partner", "Nash": "Cousin"}}, 
 
-        { "name": "Nash", "age": "34", "job": "chef", "Relationships": {"John": "Cousin", "Zalika": "Tenant"}},          
+        { "name": "Nash", "age": 34, "job": "chef", "Relationships": {"John": "Cousin", "Zalika": "Tenant"}},          
         ]
 
 my_group = []
