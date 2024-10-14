@@ -49,3 +49,12 @@ for person in my_group:
         ages.append(person["age"])
 print(max(ages))
 
+#[more advanced] the maximum age of people in the group that have at least one friend
+ages = []
+for person in my_group:
+    if sum(1 for value in person["Relationships"].values() 
+    if value == "Friend") >=1:
+        print('yes')
+        ages.append(person["age"])
+print(max(ages))
+
