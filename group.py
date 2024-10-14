@@ -35,7 +35,17 @@ for row in rows:
 ages = []
 [ages.append(person["age"]) for person in my_group]
 print(max(ages))
+
+#the average (mean) number of relations amoung the members of the group
 import numpy as np
 num_relationships = []
 [num_relationships.append(len(person["Relationships"])) for person in my_group]
 print(np.mean(num_relationships))
+
+#the maximum age of people in the group that have at least one relation
+ages = []
+for person in my_group:
+    if len(person["Relationships"]) >=1:
+        ages.append(person["age"])
+print(max(ages))
+
