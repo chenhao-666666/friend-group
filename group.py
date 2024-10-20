@@ -29,57 +29,57 @@ def add_person(name, age, job=None, relationships=None):
         "relationships" : relationships if relationships  else {}
         }
     my_group.append(person)
-    print(name, 'added to the group')
+    print(f"{name} added to the group")
 
 def get_average_ages(my_group):
     """
     Calculates the average (mean) age of the group
     """
-    ages = []
-    [ages.append(person["age"]) for person in my_group]
+    ages = [person["age"] for person in my_group]
     return np.mean(ages)
 
 def forget_person(person1, person2):
+    """
+    Removes a relationship between two people, ensuring it is removed from both sides.
+    """
     for person in my_group:
-        if person['name'] == person1:
-            del person["Relationships"][person2] 
+        if person['name'] == person1 and person2 in person["Relationships"]:
+            del person["Relationships"][person2]
+    for person in my_group:
+        if person['name'] == person2 and person1 in person["Relationships"]:
+            del person["Relationships"][person1]
 
+def safe_get(person, key):
+    """
+    Safely retrieves the value for the specified key, returning None if the key does not exist.
+    """
+    try:
+        return person[key]
+    except KeyError:
+        return None
+    
+if __name__ == "__main__":
+    # Initialize the group
+    my_group = rows.copy()
 
-my_group = []
-for row in rows:
-    # for key, entry in enumerate(row):
-    #     print(entry, row[entry])
-    my_group.append(row)
+    # Calculate the average age of the group
+    mean_ages = get_average_ages(my_group)
+    print("Average age of group = ", mean_ages)
 
-#mean age of the group
-mean_ages = get_average_ages(my_group)
-print("Average age of group = ", mean_ages)
+    # Calculate and print the maximum age in the group
+    max_age = max(person["age"] for person in my_group)
+    print('Maximum age = ', max_age)
 
-#'forget' a relationship
-#forget_person("Jill", "John")
+    # Calculate the average number of relationships per person
+    num_relationships = [len(person["Relationships"]) for person in my_group]
+    print("Average number of relationships = ", np.mean(num_relationships))
 
-#what is the maximum age in the group?
-ages = []
-[ages.append(person["age"]) for person in my_group]
-print('Maximum age = ', max(ages))
+    # Find the maximum age of people with at least one relationship
+    max_age_with_relations = max(person["age"] for person in my_group if len(person["Relationships"]) >= 1)
+    print('Maximum age of people with at least one relationship = ', max_age_with_relations)
 
-#the average (mean) number of relations amoung the members of the group
-num_relationships = []
-[num_relationships.append(len(person["Relationships"])) for person in my_group]
-print(np.mean(num_relationships))
-
-#the maximum age of people in the group that have at least one relation
-ages = []
-for person in my_group:
-    if len(person["Relationships"]) >=1:
-        ages.append(person["age"])
-print(max(ages))
-
-#[more advanced] the maximum age of people in the group that have at least one friend
-ages = []
-for person in my_group:
-    if sum(1 for value in person["Relationships"].values() 
-    if value == "Friend") >=1:
-        ages.append(person["age"])
-print(max(ages))
-
+    # Advanced: Find the maximum age of people who have at least one friend
+    max_age_with_friends = max(
+        person["age"] for person in my_group if sum(1 for value in person["Relationships"].values() if value == "Friend") >= 1
+    )
+    print('Maximum age of people with at least one friend = ', max_age_with_friends)
