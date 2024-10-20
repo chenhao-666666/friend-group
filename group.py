@@ -2,6 +2,8 @@
 
 # Your code to go here...
 import numpy as np
+import json
+import yaml
 """
 rows = [{ "name": "", "age": "", "job": "", Relationships: {} }, 
         ]
@@ -58,6 +60,31 @@ def safe_get(person, key):
     except KeyError:
         return None
     
+# Function to save the group to a JSON file
+def save_to_json(filename, data):
+    with open(filename, 'w') as file:
+        json.dump(data, file, indent=4)
+    print(f"Data saved to {filename}")
+
+# Function to load the group from a JSON file
+def load_from_json(filename):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+    return data
+
+# Function to save the group to a YAML file
+def save_to_yaml(filename, data):
+    with open(filename, 'w') as file:
+        yaml.dump(data, file, default_flow_style=False)
+    print(f"Data saved to {filename}")
+
+# Function to load the group from a YAML file
+def load_from_yaml(filename):
+    with open(filename, 'r') as file:
+        data = yaml.safe_load(file)
+    return data
+
+
 if __name__ == "__main__":
     # Initialize the group
     my_group = rows.copy()
@@ -83,3 +110,24 @@ if __name__ == "__main__":
         person["age"] for person in my_group if sum(1 for value in person["Relationships"].values() if value == "Friend") >= 1
     )
     print('Maximum age of people with at least one friend = ', max_age_with_friends)
+
+    # Example usage
+    filename_json = 'group_data.json'
+    save_to_json(filename_json, my_group)
+
+    # Load data from the JSON file
+    loaded_group_json = load_from_json(filename_json)
+
+    # Check if the original data and the loaded data are identical
+    print("Data is identical:", my_group == loaded_group_json)
+
+    # Example usage
+    filename_yaml = 'group_data.yaml'
+    save_to_yaml(filename_yaml, my_group)
+
+    # Load data from the YAML file
+    loaded_group_yaml = load_from_yaml(filename_yaml)
+
+    # Check if the original data and the loaded data are identical
+    print("Data is identical:", my_group == loaded_group_yaml)
+
